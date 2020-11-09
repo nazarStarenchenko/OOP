@@ -6,6 +6,17 @@ class ProductAlreadyExists:
 
 
     def __contains__(self, l:list):
-        if l in self.items:
-            raise IndexError('Item already exists')
-            del list.index(l)
+    	if self.items.count(l)>=2:
+	        try:
+	        	del items.index(l)
+	        	ProductAlreadyExists.__contains__()
+	        except:
+	        	raise IndexError('Item already exists').with_traceback(l)
+
+
+
+	def __delitem__(self,AdminUser(deleteElementsFromBase(l)):list:
+		try:
+			del items.index(l)
+		except Exception as exc:
+			raise NameError('Not existing item') from exc
