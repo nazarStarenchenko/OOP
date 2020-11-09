@@ -1,5 +1,6 @@
 list=[]
 
+
 class ProductAlreadyExists:
     def __delitem__(self, l):
         if l in list:
