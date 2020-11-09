@@ -81,7 +81,7 @@ class Helpers(ABC):
         file.close()
 
     @staticmethod
-    def getDataFromUser(self):
+    def getDataFromUser():
         
         email = Helpers.getEmailFromUser()
         name = input("enter your name: ")

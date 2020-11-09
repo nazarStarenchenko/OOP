@@ -1,14 +1,8 @@
 from abc import ABC, abstractmethod, metaclass
 from Cart import Cart
+from Collection import Collection
+from ItemsCollection import ItemsCollection
 
-class Collection(ABC):
-    pass
-class Cart():
-    pass
-class ItemsCollection(Collection):
-    pass
-
-# cart = [1, 2, 3, 4, 5]
 
 class CartAdder(ABC):
     @abstractmethod

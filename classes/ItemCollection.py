@@ -1,8 +1,5 @@
 from abc import ABC
-
-
-class Collection(ABC):
-    pass
+from Collection import Collection
 
 
 class ItemCollection(Collection):

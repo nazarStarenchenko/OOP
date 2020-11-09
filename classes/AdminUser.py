@@ -1,6 +1,7 @@
 from DataBaseAdderAndDeleter import DataBaseAdderAndDeleter
 from Helpers import Helpers
 from User import User
+from UserWithThisDataAlreadyExists import UserWithThisDataAlreadyExists
 
 class AdminUser(User, DataBaseAdderAndDeleter):
 	
@@ -8,7 +9,6 @@ class AdminUser(User, DataBaseAdderAndDeleter):
 		super().__init__()
 
 	def SetFields(self, dataDict): 
-		print("ADMIN")               
 		self.name = dataDict["name"]
 		self.email = dataDict["email"]
 		self.password = dataDict["password"]
@@ -98,15 +98,22 @@ class AdminUser(User, DataBaseAdderAndDeleter):
 		return valueDict
 
 
-	def addElementToBase(self, l : list):
+	def addElementToBase(self, listOfElements : list):
 		if len(l[0].keys()) > 9:
 			#working with items collection
 			data = __getItemFields()
-			l.append(data)
+			listOfElements.append(data)
 		else: 
 			#working with users colleciton
 			data = Helpers.getDataFromUser()
-			l.append(data)
+			try:
+				for el in listOfElements:
+					if data in listOfElements:
+						raise UserWithThisDataAlreadyExists(data, listOfElements)
+			except UserWithThisDataAlreadyExists as e:
+				data = e.enterRightData()	
+				
+			listOfElements.append(data)
 
 
 	def deleteElementsFromBase(self, l: list):
@@ -121,3 +128,8 @@ class AdminUser(User, DataBaseAdderAndDeleter):
 				if l[i]["email"] == email:
 					del l[i]	
 	
+
+
+ad = AdminUser()
+l = [{"email": "ana"}]
+ad.addElementToBase(l)
