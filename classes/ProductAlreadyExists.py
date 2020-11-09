@@ -8,10 +8,10 @@ class ProductAlreadyExists:
     def __contains__(self, l:list):
     	if self.items.count(l)>=2:
 	        try:
-	        	del items.index(l)
 	        	ProductAlreadyExists.__contains__()
 	        except:
-	        	raise IndexError('Item already exists').with_traceback(l)
+	        	raise IndexError('Item already exists').with_traceback(items.index(l))
+	        	del items.index(l)
 
 
 

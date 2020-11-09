@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class DataBaseAdderAndDeleter(ABC,ProductAlreadyExists):
+class DataBaseAdderAndDeleter(ABC):
 	@abstractmethod
 	def addElementToBase(self, l: list):
 		pass
