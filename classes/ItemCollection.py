@@ -1,15 +1,31 @@
 from abc import ABC
-from Collection import Collection
+from classes.Collection import Collection
 
 
 class ItemCollection(Collection):
-    __allItems = []
 
-    def __init__(self, _list):
-        self._list = list
+    def __init__(self):
+        self.__listOfContent = []
+	
+    def getAllFromDataBase(self):
+    	file = open('itemBase.txt', 'r')
+    	self.__listOfContent = file.readlines() 
+    	file.close()
+        for i in range(0, len(self.__listOfContent)):
+            self.__listOFContent[i] = eval(self.__listOFContent[i][:-1])
 
-    def __setitem__(self, key, value):
-        self._list[key] = value
+    def addToFile(self):
+        file = open('itemBase.txt', 'w')
+        for l in self.__listOfContent:
+            file.write(str(l)+"\n")
+        file.close()
 
-    def __getitem__(self, key):
-        return self._list[key]
+    @property
+    def listOfContent(self):
+    	return self.__listOfContent
+
+    @listOfContent.setter
+    def listOfContent(self, l):
+        self.__listOfContent = l
+    
+

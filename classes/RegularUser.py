@@ -1,16 +1,29 @@
 from abc import ABC
-from User import User
+from classes.User import User
+from classes.CartAdder import CartAdder
 
-class RegularUser(User, ABC):
+class RegularUser(User,CartAdder,ABC):
     def __init__(self):
-        super().__init__()
         self.__age = 0
         self.__cardNumber = 0
         self.__cvv = 0
         self.__cardDateMonth = 0
         self.__cardDateYear = 0
         self.__cardPassword = 0
-        
+        super().__init__()
+
+    def addElementToCart(self, cartList : list, porductList: list):
+        productName = input("enter a name of product to add to cart:")
+        for dct in porductList:
+            if productName == dct["name"]:
+                cartList.append(dct)
+
+
+    def delElementFromCart(self, cartList : list):
+        productName = input("enter a name of product to delete from cart:")
+        for i in range(len(cartList)):
+            if productName == cartList[i]["name"]:
+                del cartList[i]
 
     @property
     def age(self):
@@ -58,5 +71,6 @@ class RegularUser(User, ABC):
     @cardPassword.setter
     def cardPassword(self, value):
         self.__cardPasswordr = value
+
 
 

@@ -1,6 +1,6 @@
-from Helpers import Helpers
-from User import User
-from RegularUser import RegularUser
+from classes.Helpers import Helpers
+from classes.User import User
+from classes.RegularUser import RegularUser
 
 class LoginUser(RegularUser):
 
@@ -21,3 +21,4 @@ class LoginUser(RegularUser):
         self.cvv = dataDict["cvv"] 
         self.cardDateYear = dataDict["cardDateYear"] 
         self.cardDateMonth = dataDict["cardDateMonth"]
+

@@ -1,26 +1,26 @@
 class Cart:
 
-    def init(self, *args):
-        self.values = list(args)
+    def __init__(self):
+        self.__cartList = []
 
-    def repr(self):
-        return str(self.values)
+    def confimOrder():
+        print(
+'''
+Do you want to confim order?
+1 - yes
+2 - no
+''')
+        choice = int(input("enter your choice: "))
+        if  choice == 1:
+             return True 
+        elif choice == 2:
+            return False
 
-    def getitem(self, item):
-        if 0 <= item < len(self.values):
-            return self.values[item]
-        else:
-            raise IndexError('Index out of range')
 
-    def setitem(self, key, value):  # a = Item([1],[2],[3],[4],[5],[6],[7],[8],[9],[10])
-        if 0 <= key < len(self.values):
-            self.values[key] = value
-        else:
-            raise IndexError('Index out of range')
+    @property
+    def cartList(self):
+        return self.__cartList
 
-    def delitem(self, key):
-        if 0 <= key < len(self.values):
-            del self.values[key]
-        else:
-            raise IndexError('Index out of range')
-
+    @cartList.setter
+    def cartList(self, cart):
+        self.__cartList = cart

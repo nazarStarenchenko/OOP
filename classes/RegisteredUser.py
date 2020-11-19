@@ -1,6 +1,5 @@
-from User import User
-from Helpers import Helpers
-from RegularUser import RegularUser
+from classes.Helpers import Helpers
+from classes.RegularUser import RegularUser
 
 class RegisteredUser(RegularUser):
 
@@ -8,7 +7,7 @@ class RegisteredUser(RegularUser):
         super().__init__()
 
 
-    def addToDataBaseAndSetFields(self):
+    def setFieldsAndReturnDataDict(self):
         dataDict = Helpers.getDataFromUser()
 
         #set fields
@@ -22,8 +21,5 @@ class RegisteredUser(RegularUser):
         self.cardDateYear = dataDict["cardDateYear"] 
         self.cardDateMonth = dataDict["cardDateMonth"] 
 
-        #write into the file
-        file = open('../../userBase.txt', 'a+') 
-        file.write(str(dataDict)+ "\n") 
-        file.close()
+        
 
