@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
 import tkinter.ttk as ttk
+from tkinter import *
 #from classes.CartAdder import CartAdder
 #from classes.Cart import Cart
 
@@ -42,9 +43,26 @@ class MultiColumnListbox(object):
 def add():
     pass
 def details():
-    pass
+    Details().mainloop()
 def go():
-    pass
+    Cart().mainloop()
+
+
+class Details(Tk):
+    def __init__(self, *arg, **kwarg):
+        super().__init__(*arg, **kwarg)
+
+        label = Label(self, text='Second Window')
+        label.pack()
+
+
+class Cart(Tk):
+    def __init__(self, *arg, **kwarg):
+        super().__init__(*arg, **kwarg)
+
+        label = Label(self, text='Cart')
+        label.pack()
+
 
 def sortby(tree, col, descending):
     data = [(tree.set(child, col), child) \
