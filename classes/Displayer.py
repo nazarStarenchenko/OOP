@@ -95,7 +95,7 @@ if __name__ == '__main__':
     root.title("Список товарів")
     listbox = MultiColumnListbox()
     cartList = []
-    button1 = tk.Button(root, text="Додати", command= RegularUser.addElementToCart(cartList, )).pack(fill=tk.X)
+    button1 = tk.Button(root, text="Додати", command= RegularUser.addElementToCart(cartList, listbox)).pack(fill=tk.X)
     button2 = tk.Button(root, text="Детальніше", command=details).pack(fill=tk.X)
     button3 = tk.Button(root, text="Перейти до кошика", command=go).pack(fill=tk.X)
     root.mainloop()
