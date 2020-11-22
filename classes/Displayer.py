@@ -12,10 +12,13 @@ class MultiColumnListbox(object):
         self.tree = None
         self._setup_widgets()
         self._build_tree()
-        self.__cartList = []
+
+
+
 
     def _setup_widgets(self):
-        s = """ """
+
+        s = """Оберіть товари: """
         msg = ttk.Label(wraplength="4i", justify="left", anchor="n", padding=(10, 2, 10, 6), text=s, width=120)
         msg.pack(fill='x')
         container = ttk.Frame()
@@ -30,6 +33,12 @@ class MultiColumnListbox(object):
         container.grid_columnconfigure(0, weight=1)
         container.grid_rowconfigure(0, weight=1)
 
+
+
+
+
+
+
     def _build_tree(self):
         for col in column:
             self.tree.heading(col, text=col.title(), command=lambda c=col: sortby(self.tree, c, 0))
@@ -42,17 +51,8 @@ class MultiColumnListbox(object):
                 if self.tree.column(column[ix], width=None) < col_w:
                     self.tree.column(column[ix], width=col_w)
 
-    def sortby(tree, col, descending):
-        data = [(tree.set(child, col), child) \
-                for child in tree.get_children('')]
-        data.sort(reverse=descending)
-        for ix, item in enumerate(data):
-            tree.move(item[1], '', ix)
-        tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
-
-
-def add():
-    pass
+def add(cartList):
+    cartList.append([tree.item(x) for x in tree.selection()])
 
 
 def details():
@@ -63,11 +63,23 @@ def go():
     Cart().mainloop()
 
 
-class Details(Tk):
+def sortby(tree, col, descending):
+    data = [(tree.set(child, col), child) \
+            for child in tree.get_children('')]
+    data.sort(reverse=descending)
+    for ix, item in enumerate(data):
+        tree.move(item[1], '', ix)
+    tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
+
+
+
+
+
+
+class Details(Tk, MultiColumnListbox):
     def __init__(self, *arg, **kwarg):
         super().__init__(*arg, **kwarg)
-
-        label = Label(self, text='Second Window', width=120, height=30)
+        label = Label(self, text='Details', width=120, height=30)
         label.pack()
 
 
@@ -94,7 +106,9 @@ if __name__ == '__main__':
     root.title("Список товарів")
     listbox = MultiColumnListbox()
     cartList = []
-    button1 = tk.Button(root, text="Додати", command= add).pack(fill=tk.X)
+    #button1 = tk.Button(root, text="Додати", command=add(cartList)).pack(fill=tk.X)
     button2 = tk.Button(root, text="Детальніше", command=details).pack(fill=tk.X)
     button3 = tk.Button(root, text="Перейти до кошика", command=go).pack(fill=tk.X)
+    exit_button = tk.Button(root, text="Вихід", command=root.quit).pack(fill=tk.X)
     root.mainloop()
+
