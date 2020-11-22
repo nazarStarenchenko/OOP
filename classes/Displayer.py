@@ -34,11 +34,6 @@ class MultiColumnListbox(object):
         container.grid_rowconfigure(0, weight=1)
 
 
-
-
-
-
-
     def _build_tree(self):
         for col in column:
             self.tree.heading(col, text=col.title(), command=lambda c=col: sortby(self.tree, c, 0))
@@ -50,6 +45,16 @@ class MultiColumnListbox(object):
                 col_w = tkFont.Font().measure(val)
                 if self.tree.column(column[ix], width=None) < col_w:
                     self.tree.column(column[ix], width=col_w)
+
+
+def sortby(tree, col, descending):
+    data = [(tree.set(child, col), child) \
+            for child in tree.get_children('')]
+    data.sort(reverse=descending)
+    for ix, item in enumerate(data):
+        tree.move(item[1], '', ix)
+    tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
+
 
 def add(cartList):
     cartList.append([tree.item(x) for x in tree.selection()])
@@ -63,20 +68,7 @@ def go():
     Cart().mainloop()
 
 
-def sortby(tree, col, descending):
-    data = [(tree.set(child, col), child) \
-            for child in tree.get_children('')]
-    data.sort(reverse=descending)
-    for ix, item in enumerate(data):
-        tree.move(item[1], '', ix)
-    tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
-
-
-
-
-
-
-class Details(Tk, MultiColumnListbox):
+class Details(Tk):
     def __init__(self, *arg, **kwarg):
         super().__init__(*arg, **kwarg)
         label = Label(self, text='Details', width=120, height=30)
