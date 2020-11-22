@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 import tkinter.ttk as ttk
 from tkinter import *
-from classes.RegularUser import RegularUser
+#from classes.RegularUser import RegularUser
 #from classes.CartAdder import CartAdder
 
 
@@ -52,8 +52,7 @@ class MultiColumnListbox(object):
 
 
 def add():
-    listbox.insert(END, root.get())
-    root.delete(0, END)
+    pass
 
 
 def details():
@@ -95,7 +94,7 @@ if __name__ == '__main__':
     root.title("Список товарів")
     listbox = MultiColumnListbox()
     cartList = []
-    button1 = tk.Button(root, text="Додати", command= RegularUser.addElementToCart(cartList, listbox)).pack(fill=tk.X)
+    button1 = tk.Button(root, text="Додати", command= add).pack(fill=tk.X)
     button2 = tk.Button(root, text="Детальніше", command=details).pack(fill=tk.X)
     button3 = tk.Button(root, text="Перейти до кошика", command=go).pack(fill=tk.X)
     root.mainloop()
