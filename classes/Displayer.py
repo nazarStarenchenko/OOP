@@ -2,8 +2,10 @@ import tkinter as tk
 import tkinter.font as tkFont
 import tkinter.ttk as ttk
 from tkinter import *
-#from classes.RegularUser import RegularUser
-#from classes.CartAdder import CartAdder
+
+
+# from classes.RegularUser import RegularUser
+# from classes.CartAdder import CartAdder
 
 
 class MultiColumnListbox(object):
@@ -56,11 +58,23 @@ def add():
 
 
 def details():
-    Details().mainloop()
+    x = tree.selection()[0]
+    root2 = tk.Tk()
+    root2.title("Item Information")
+    root2.geometry("1280x650+-10+0")
+    for i in enumerate(alllist):
+        if x[0] in list(dict.keys(alllist[i])):
+            for key, value in alllist[i].items():
+                text = f"{key} : {value}"
+                Label(root2, text=text).grid()
+            root2.mainloop()
 
 
 def go():
-    Cart().mainloop()
+    x = tree.selection()[0]
+    root3 = tk.Tk
+    Label(root3, text=x[0]).grid()
+    root3.mainloop()
 
 
 class Details(Tk):
@@ -83,8 +97,10 @@ column = ['Назва товару', 'Ціна']
 file = open("C:\\Users\\VivoBook\\PycharmProjects\\OOP-1\\itemBase.txt", "r")
 line = file.readlines()
 l = []
+alllist = []
 for i in line:
     dct = eval(i)
+    alllist.append(dct)
     p = dct['name'], dct['price']
     l.append(p)
 file.close()
@@ -94,7 +110,10 @@ if __name__ == '__main__':
     root.title("Список товарів")
     listbox = MultiColumnListbox()
     cartList = []
-    button1 = tk.Button(root, text="Додати", command= add).pack(fill=tk.X)
+
+    button1 = tk.Button(root, text="Додати", command=add).pack(fill=tk.X)
     button2 = tk.Button(root, text="Детальніше", command=details).pack(fill=tk.X)
+    # button2 = tk.Button(root, text="Детальніше", command=lambda: details(listbox)).pack(fill=tk.X)
     button3 = tk.Button(root, text="Перейти до кошика", command=go).pack(fill=tk.X)
     root.mainloop()
+
