@@ -57,7 +57,8 @@ def sortby(tree, col, descending):
 
 
 def add(cartList):
-    cartList.append([tree.item(x) for x in tree.selection()])
+    # cartList.append([tree.item(x) for x in tree.selection()])
+    pass
 
 
 def details():
@@ -98,7 +99,7 @@ if __name__ == '__main__':
     root.title("Список товарів")
     listbox = MultiColumnListbox()
     cartList = []
-    #button1 = tk.Button(root, text="Додати", command=add(cartList)).pack(fill=tk.X)
+    button1 = tk.Button(root, text="Додати", command=add(cartList)).pack(fill=tk.X)
     button2 = tk.Button(root, text="Детальніше", command=details).pack(fill=tk.X)
     button3 = tk.Button(root, text="Перейти до кошика", command=go).pack(fill=tk.X)
     exit_button = tk.Button(root, text="Вихід", command=root.quit).pack(fill=tk.X)
