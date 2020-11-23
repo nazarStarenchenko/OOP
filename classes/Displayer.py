@@ -2,10 +2,8 @@ import tkinter as tk
 import tkinter.font as tkFont
 import tkinter.ttk as ttk
 from tkinter import *
-
-
-# from classes.RegularUser import RegularUser
-# from classes.CartAdder import CartAdder
+#from classes.RegularUser import RegularUser
+#from classes.CartAdder import CartAdder
 
 
 class MultiColumnListbox(object):
@@ -14,10 +12,13 @@ class MultiColumnListbox(object):
         self.tree = None
         self._setup_widgets()
         self._build_tree()
-        self.__cartList = []
+
+
+
 
     def _setup_widgets(self):
-        s = """ """
+
+        s = """Оберіть товари: """
         msg = ttk.Label(wraplength="4i", justify="left", anchor="n", padding=(10, 2, 10, 6), text=s, width=120)
         msg.pack(fill='x')
         container = ttk.Frame()
@@ -32,6 +33,7 @@ class MultiColumnListbox(object):
         container.grid_columnconfigure(0, weight=1)
         container.grid_rowconfigure(0, weight=1)
 
+
     def _build_tree(self):
         for col in column:
             self.tree.heading(col, text=col.title(), command=lambda c=col: sortby(self.tree, c, 0))
@@ -44,44 +46,33 @@ class MultiColumnListbox(object):
                 if self.tree.column(column[ix], width=None) < col_w:
                     self.tree.column(column[ix], width=col_w)
 
-    def sortby(tree, col, descending):
-        data = [(tree.set(child, col), child) \
-                for child in tree.get_children('')]
-        data.sort(reverse=descending)
-        for ix, item in enumerate(data):
-            tree.move(item[1], '', ix)
-        tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
+
+def sortby(tree, col, descending):
+    data = [(tree.set(child, col), child) \
+            for child in tree.get_children('')]
+    data.sort(reverse=descending)
+    for ix, item in enumerate(data):
+        tree.move(item[1], '', ix)
+    tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
 
 
-def add():
+def add(cartList):
+    # cartList.append([tree.item(x) for x in tree.selection()])
     pass
 
 
 def details():
-    x = tree.selection()[0]
-    root2 = tk.Tk()
-    root2.title("Item Information")
-    root2.geometry("1280x650+-10+0")
-    for i in enumerate(alllist):
-        if x[0] in list(dict.keys(alllist[i])):
-            for key, value in alllist[i].items():
-                text = f"{key} : {value}"
-                Label(root2, text=text).grid()
-            root2.mainloop()
+    Details().mainloop()
 
 
 def go():
-    x = tree.selection()[0]
-    root3 = tk.Tk
-    Label(root3, text=x[0]).grid()
-    root3.mainloop()
+    Cart().mainloop()
 
 
 class Details(Tk):
     def __init__(self, *arg, **kwarg):
         super().__init__(*arg, **kwarg)
-
-        label = Label(self, text='Second Window', width=120, height=30)
+        label = Label(self, text='Details', width=120, height=30)
         label.pack()
 
 
@@ -97,10 +88,8 @@ column = ['Назва товару', 'Ціна']
 file = open("C:\\Users\\VivoBook\\PycharmProjects\\OOP-1\\itemBase.txt", "r")
 line = file.readlines()
 l = []
-alllist = []
 for i in line:
     dct = eval(i)
-    alllist.append(dct)
     p = dct['name'], dct['price']
     l.append(p)
 file.close()
@@ -110,10 +99,9 @@ if __name__ == '__main__':
     root.title("Список товарів")
     listbox = MultiColumnListbox()
     cartList = []
-
-    button1 = tk.Button(root, text="Додати", command=add).pack(fill=tk.X)
+    button1 = tk.Button(root, text="Додати", command=add(cartList)).pack(fill=tk.X)
     button2 = tk.Button(root, text="Детальніше", command=details).pack(fill=tk.X)
-    # button2 = tk.Button(root, text="Детальніше", command=lambda: details(listbox)).pack(fill=tk.X)
     button3 = tk.Button(root, text="Перейти до кошика", command=go).pack(fill=tk.X)
+    exit_button = tk.Button(root, text="Вихід", command=root.quit).pack(fill=tk.X)
     root.mainloop()
 
