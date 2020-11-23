@@ -31,7 +31,7 @@ for i in line:
     l.append(p)
 file.close()
 data = l
-print(alllist[0])
+print(alllist)
 
 
 count = 0
@@ -41,9 +41,13 @@ for record in data:
 
 my_tree.pack(pady=20)
 
-
+cartlist = []
 def add_record():
-    pass
+    x = my_tree.selection()[0]
+    cartlist.append(list(dict.values(alllist[int(x)]))[0])
+    print(cartlist)
+    return cartlist
+
 
 def go_cart():
     root3 = Tk()
