@@ -55,6 +55,7 @@ def sortby(tree, col, descending):
         tree.move(item[1], '', ix)
     tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
 
+
 #Observed
 class Button:
     def __init__(self):
