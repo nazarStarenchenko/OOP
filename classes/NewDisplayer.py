@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+#from OOP.CartWindowFrame import CartWindow
 
 root = Tk()
 root.title('Tree')
@@ -20,58 +21,74 @@ my_tree.heading("Name", text='Name', anchor=W)
 my_tree.heading("Amount", text='Amount', anchor=CENTER)
 my_tree.heading("Price", text='Price', anchor=W)
 
-file = open("C:/Users/Nikolay/PycharmProjects/untitled5/OOP/itemBase.txt", "r")
-line = file.readlines()
-l = []
-alllist = []
-for i in line:
-    dct = eval(i)
-    alllist.append(dct)
-    p = dct['name'], dct['amountAvalible'], dct['price']
-    l.append(p)
-file.close()
-data = l
-print(alllist)
+
+class Target:
+    def request(self) -> str:
+        pass
 
 
-count = 0
-for record in data:
-    my_tree.insert(parent='', index='end', iid=count, text='', values=(record[0], record[1], record[2]))
-    count += 1
+class Adaptee:
+    # def specific_request(self) -> str:
+    #    return ".eetpadA eht fo roivaheb laicepS"
 
-my_tree.pack(pady=20)
+    @staticmethod
+    def add_record():
+        x = my_tree.selection()[0]
+        cartlist.append(list(dict.values(alllist[int(x)]))[0])
+        print(cartlist)
+        return cartlist
 
-cartlist = []
-def add_record():
-    x = my_tree.selection()[0]
-    cartlist.append(list(dict.values(alllist[int(x)]))[0])
-    print(cartlist)
-    return cartlist
+    class CartWindow:
+        pass
+
+    @staticmethod
+    def details():
+        x = my_tree.selection()[0]
+        root2 = Tk()
+        root2.title("Item Information")
+        root2.geometry("1280x650+-10+0")
+        for key, value in alllist[int(x)].items():
+            text = f"{key} : {value}"
+            Label(root2, text=text).grid()
+        root2.mainloop()
 
 
-def go_cart():
-    root3 = Tk()
-    root3.title("Cart Collection")
-    root3.geometry("1280x650+-10+0")
-    root3.mainloop()
+class Adapter(Target, Adaptee):
+    def request(self):
+        pass
 
-def details():
-    x = my_tree.selection()[0]
-    root2 = Tk()
-    root2.title("Item Information")
-    root2.geometry("1280x650+-10+0")
-    for key, value in alllist[int(x)].items():
-        text = f"{key} : {value}"
-        Label(root2, text=text).grid()
-    root2.mainloop()
 
-add_record = Button(root, text="Add To Cart", font='sans 14', command=add_record)
-add_record.pack(pady=0)
+def client_code(target: "Target") -> None:
+    print(target.request(), end="")
 
-go_cart = Button(root, text="Go To Cart", font='sans 14', command=go_cart)
-go_cart.pack(pady=0)
 
-remove_one = Button(root, text="Details", font='sans 14', command=details)
-remove_one.pack(pady=0)
+if __name__ == "__main__":
+    file = open("C:/Users/Nikolay/PycharmProjects/untitled5/OOP/itemBase.txt", "r")
+    line = file.readlines()
+    l = []
+    alllist = []
+    for i in line:
+        dct = eval(i)
+        alllist.append(dct)
+        p = dct['name'], dct['amountAvalible'], dct['price']
+        l.append(p)
+    file.close()
+    data = l
+    print(alllist)
+    count = 0
+    for record in data:
+        my_tree.insert(parent='', index='end', iid=count, text='', values=(record[0], record[1], record[2]))
+        count += 1
+    my_tree.pack(pady=20)
+    cartlist = []
 
-root.mainloop()
+    add_record = Button(text="Add To Cart", font='sans 14', command=Adaptee.add_record)
+    add_record.pack(pady=0)
+
+    go_cart = Button(text="Go To Cart", font='sans 14', command=Adaptee.CartWindow)
+    go_cart.pack(pady=0)
+
+    remove_one = Button(text="Details", font='sans 14', command=Adaptee.details)
+    remove_one.pack(pady=0)
+
+    root.mainloop()
