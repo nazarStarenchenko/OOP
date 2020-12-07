@@ -5,6 +5,7 @@ class UsersCollectionSingleton(metaclass=Singlemeta):
     
     def __init__(self):
         self.__listOfContent = []
+        self.getAllFromDataBase()
 	
     def getAllFromDataBase(self):
         file = open('userBase.txt', 'r')

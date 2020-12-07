@@ -5,6 +5,7 @@ class ItemCollectionSingleton(metaclass=Singlemeta):
 
     def __init__(self):
         self.__listOfContent = []
+        self.getAllFromDataBase()
     
     def getAllFromDataBase(self):
         file = open('itemBase.txt', 'r')
@@ -27,14 +28,4 @@ class ItemCollectionSingleton(metaclass=Singlemeta):
     def listOfContent(self, l):
         self.__listOfContent = l
    
-if __name__ == "__main__":
-
-    a = ItemCollectionSingleton()
-    a.getAllFromDataBase()
-
-    b = ItemCollectionSingleton()
-    b.getAllFromDataBase()
-
-    print(a,b)
-    print(a == b)
     
