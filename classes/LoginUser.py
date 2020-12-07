@@ -10,8 +10,6 @@ class LoginUser(RegularUser):
 
     def SetFields(self, dataDict):
 
-        dataDict = Helpers.logger()
-
         self.email = dataDict["email"]
         self.password = dataDict["password"]    
         self.name = dataDict["name"] 
