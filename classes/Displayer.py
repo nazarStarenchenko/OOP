@@ -56,17 +56,88 @@ def sortby(tree, col, descending):
     tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
 
 
+#Observed
+class Button:
+    def __init__(self):
+        self.__handlers = {}
+
+    def add_handler(self, event, handler):
+        if event not in self.EVENTS or event not in handler.EVENTS:
+            raise "Unsupported event type: '{}'".format(event)
+        if event not in self.__handlers:
+            self.__handlers[event] = []
+        if handler not in self.__handlers[event]:
+            self.__handlers[event].append(handler)
+
+    def remove_handler(self, event, handler):
+        if event in self.__handlers:
+            self.__handlers[event].remove(handler)
+
+    def notify(self, event):
+        if event in self.__handlers:
+            for handler in self.__handlers[event]:
+                handler.handle(event)
+
+
+class Button1(Button):
+    EVENTS = ['click']
+
+
+class Button2(Button):
+    EVENTS = ['click']
+
+
+class Button3(Button):
+    EVENTS = ['click']
+
+
+# class ExitButton2(Button):
+#     EVENTS = ['click']
+
+
+class Handler1:
+    EVENTS = ['click', 'hover']
+
+    def handle(self, event):
+        if event == 'click':
+            # cartList.append([tree.item(x) for x in tree.selection()])
+            pass
+
+
+
+class Handler2:
+    EVENTS = ['click']
+
+    def handle(self, event):
+        if event == 'click':
+            Details().mainloop()
+
+
+class Handler3:
+    EVENTS = ['click']
+
+    def handle(self, event):
+        if event == 'click':
+            Cart().mainloop()
+
+# class Handler4:
+#     EVENTS = ['click']
+#
+#     def handle(self, event):
+#         if event == 'click':
+#             Cart().mainloop()
+
+
 def add(cartList):
-    # cartList.append([tree.item(x) for x in tree.selection()])
-    pass
+    btn.notify('click')
 
 
 def details():
-    Details().mainloop()
+    btn2.notify('click')
 
 
 def go():
-    Cart().mainloop()
+    btn3.notify('click')
 
 
 class Details(Tk):
@@ -94,11 +165,23 @@ for i in line:
     l.append(p)
 file.close()
 
+
+
+
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("Список товарів")
     listbox = MultiColumnListbox()
     cartList = []
+    btn = Button1()
+    handler1 = Handler1()
+    btn.add_handler('click', handler1)
+    btn2 = Button2()
+    handler2 = Handler2()
+    btn2.add_handler('click', handler2)
+    btn3 = Button3()
+    handler3 = Handler3()
+    btn3.add_handler('click', handler3)
     button1 = tk.Button(root, text="Додати", command=add(cartList)).pack(fill=tk.X)
     button2 = tk.Button(root, text="Детальніше", command=details).pack(fill=tk.X)
     button3 = tk.Button(root, text="Перейти до кошика", command=go).pack(fill=tk.X)
