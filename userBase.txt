@@ -1,3 +1,1 @@
-{'email': 'nazar@gmail.com', 'name': 'vasya', 'age': 14, 'password': '567', 'cardNumber': '214365870987', 'cvv': '213', 'cardDateMonth': 5, 'cardDateYear': 34}
-{'email': 'ghf@gmail.com', 'name': '567', 'age': 14, 'password': 'gay', 'cardNumber': '124312431243', 'cvv': '123', 'cardDateMonth': 4, 'cardDateYear': 56}
-{'email': 'nazarstar@gmail.com', 'name': 'vasya', 'age': 14, 'password': '56789', 'cardNumber': '214321436587', 'cvv': '567', 'cardDateMonth': 3, 'cardDateYear': 45}
+{'email': 'ghf@gmail.com', 'name': '567', 'age': 14, 'password': 'gay', 'cardNumber': '124312431243', 'cvv': '123', 'cardDateMonth': 4, 'cardDateYear': 56, 'cardPassword': 1242}

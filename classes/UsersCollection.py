@@ -1,22 +1,25 @@
-from abc import ABC
-from classes.Collection import  Collection
+from classes.Collection import Collection
 
-
-class UsersCollection(Collection):
+class UsersCollectionSingleton(Collection):
     
     def __init__(self):
         self.__listOfContent = []
+        self.getAllFromDataBase()
 	
     def getAllFromDataBase(self):
-    	file = open('userBase.txt', 'r')
-    	self.__listOfContent = file.readlines() 
-    	file.close()
-        for i in range(0, len(self.__listOfContent)):
-            self.__listOFContent[i] = eval(self.__listOFContent[i][:-1])
+        file = open('userBase.txt', 'r')
+        self.__listOfContent = file.readlines() 
+        file.close()
+        for i in range(0 ,len(self.__listOfContent)):
+            self.__listOfContent[i] = eval(self.__listOfContent[i][:-1])
+
+    def appendToUserCollection(dictToAppend: dict):
+        self.__listOfContent.append(dictToAppend)
 
     def addToFile(self):
         file = open('userBase.txt', 'w')
-        file.write(str(__listOfContent)+ "\n")
+        for i in range(0, len(self.__listOfContent)):
+            file.write(str(self.__listOfContent[i])+ "\n")
         file.close()
 
     @property

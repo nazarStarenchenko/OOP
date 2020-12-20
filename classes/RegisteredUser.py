@@ -7,8 +7,7 @@ class RegisteredUser(RegularUser):
         super().__init__()
 
 
-    def setFieldsAndReturnDataDict(self):
-        dataDict = Helpers.getDataFromUser()
+    def setFields(self, dataDict):
 
         #set fields
         self.email = dataDict["email"]

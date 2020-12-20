@@ -1,18 +1,18 @@
-from abc import ABC
 from classes.Collection import Collection
 
 
-class ItemCollection(Collection):
+class ItemCollectionSingleton(Collection):
 
     def __init__(self):
         self.__listOfContent = []
-	
+        self.getAllFromDataBase()
+    
     def getAllFromDataBase(self):
-    	file = open('itemBase.txt', 'r')
-    	self.__listOfContent = file.readlines() 
-    	file.close()
+        file = open('itemBase.txt', 'r')
+        self.__listOfContent = file.readlines() 
+        file.close()
         for i in range(0, len(self.__listOfContent)):
-            self.__listOFContent[i] = eval(self.__listOFContent[i][:-1])
+            self.__listOfContent[i] = eval(self.__listOfContent[i][:-1])
 
     def addToFile(self):
         file = open('itemBase.txt', 'w')
@@ -22,10 +22,8 @@ class ItemCollection(Collection):
 
     @property
     def listOfContent(self):
-    	return self.__listOfContent
+        return self.__listOfContent
 
     @listOfContent.setter
     def listOfContent(self, l):
         self.__listOfContent = l
-    
-
