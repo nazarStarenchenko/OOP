@@ -1,7 +1,6 @@
-from classes.Singleton import Singlemeta
+from classes.Collection import Collection
 
-
-class UsersCollectionSingleton(metaclass=Singlemeta):
+class UsersCollectionSingleton(Collection):
     
     def __init__(self):
         self.__listOfContent = []

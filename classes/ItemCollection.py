@@ -1,7 +1,7 @@
-from classes.Singleton import Singlemeta
+from classes.Collection import Collection
 
 
-class ItemCollectionSingleton(metaclass=Singlemeta):
+class ItemCollectionSingleton(Collection):
 
     def __init__(self):
         self.__listOfContent = []
@@ -27,5 +27,3 @@ class ItemCollectionSingleton(metaclass=Singlemeta):
     @listOfContent.setter
     def listOfContent(self, l):
         self.__listOfContent = l
-   
-    

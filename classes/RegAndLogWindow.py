@@ -142,3 +142,4 @@ class ChoiceWindow:
 		a = LogWindow(root)
 		self.window.destroy()
 		return a
+
