@@ -1,10 +1,6 @@
 import tkinter as tk
 from tkinter.ttk import *
-from classes.AdminUser import AdminUser
-
-from classes.Helpers import Helpers
-
-from classes.RegAndLogWindow import *
+from classes.RegAndLogWindow import ChoiceWindow
 
 
 if __name__ == '__main__':

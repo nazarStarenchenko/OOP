@@ -52,6 +52,7 @@ class Adaptee:
 
         lbl3 = Label(window, text="Enter name of product to delete from cart:")
         lbl3.grid(column=0, row=4)
+        global txt
         txt = Entry(window, width=20)
         txt.grid(column=1, row=4)
         txt.focus()
