@@ -39,74 +39,55 @@ class Adaptee:
         print(cartList)
         return cartList
 
-    class CartWindow:
-
-        def __init__(self, root):
-            self.root = root
-            root.title("CART")
-            root.geometry("300x220")
-
-            self.label1 = Label(root, text="Items added to the cart:")
-            self.label1.pack()
-
-            self.cartlist = cartList
-
-            self.label_cart = Label(root, text=self.cartlist, font='bold')
-            self.label_cart.pack(pady=10)
-
-            self.label_entry = Label(root, text="Enter name of product to delete from cart:")
-            self.label_entry.pack()
-            self.entry = Entry(root, width=20)
-            self.entry.focus()
-            self.entry.pack()
-
-            self.delete_button = Button(root, text="Delete", command=self.to_delete)
-            self.delete_button.pack()
-
-            self.label_buy = Label(root, text="To buy products click on the button")
-            self.label_buy.pack(ipady=5)
-            self.buy_button = Button(root, text="Buy", command=self.to_buy)
-            self.buy_button.pack()
-
-        def to_delete(self):
-            self.res = self.entry.get()
-            if self.res in self.cartlist:
-                self.cartlist.remove(self.res)
-                self.label_cart.configure(text=self.cartlist)
-                self.entry.delete(0, END)
-            else:
-                self.entry.delete(0, END)
-
-                self.destroy_obj = [self.label_buy,
-                                    self.buy_button]
-                for each in self.destroy_obj:
-                    each.destroy()
-                self.label_noitem = Label(root, text="There is no such item in the cart")
-                self.label_noitem.pack()
-                self.label_noitem.after(3000, self.label_noitem.destroy)
-
-                self.label_buy = Label(root, text="To buy products click on the button")
-                self.label_buy.pack(ipady=5)
-                self.buy_button = Button(root, text="Buy", command=self.to_buy)
-                self.buy_button.pack()
-
-        def to_buy(self):
-            self.destroy_object = [self.label1, self.label_cart,
-                                   self.label_entry, self.label_buy, self.entry,
-                                   self.buy_button, self.delete_button]
-
-            for each in self.destroy_object:
-                each.destroy()
-
-            self.label_inbuy = Label(root, text="YOUR ORDER WAS CONFIRMED!")
-            self.label_inbuy.pack(pady=40)
-            self.label_inbuy.after(2000, root.destroy)
-
     @staticmethod
-    def CartWindowMain():
-        root = Tk()
-        Adaptee.CartWindow(root)
-        root.mainloop()
+    def CartWindow():
+
+        def to_delete():
+            res = txt.get()
+            cartList.remove(res)
+            lbl1.configure(text=cartList)
+            txt.delete(0, END)
+
+        def to_buy():
+
+            destroy_object = [lbl, lbl1, lbl2, lbl3, btn, btn2, txt]
+            for object_name in destroy_object:
+                if object_name.winfo_viewable():
+                    object_name.grid_remove()
+                else:
+                    object_name.grid()
+
+            lbl_buy = Label(window, text="Your order was confirmed!")
+            lbl_buy.grid(column=2, row=0)
+            lbl_buy.after(2000, close_window)
+            root.after(2, root.destroy)
+            
+        def close_window():
+            window.destroy()
+
+        window = Tk()
+        window.title("Cart")
+        window.geometry('600x250')
+        lbl = Label(window, text="Items added to the cart", font=("Arial Bold", 12))
+        lbl.grid(column=1, row=0)
+        lbl1 = Label(window, text=cartList)
+        lbl1.grid(column=0, row=2)
+
+        lbl3 = Label(window, text="Enter name of product to delete from cart:")
+        lbl3.grid(column=0, row=4)
+        txt = Entry(window, width=20)
+        txt.grid(column=1, row=4)
+        txt.focus()
+
+        btn = Button(window, text="Delete", command=to_delete)
+        btn.grid(column=1, row=5, pady=5)
+
+        lbl2 = Label(window, text="To buy products click on the button")
+        lbl2.grid(column=0, row=7)
+        btn2 = Button(window, text="Buy", command=to_buy)
+        btn2.grid(column=1, row=7)
+
+        window.mainloop()
 
     @staticmethod
     def details():
@@ -152,10 +133,9 @@ if __name__ == "__main__":
     add_record = Button(text="Add To Cart", font='sans 14', command=Adaptee.add_record)
     add_record.pack(pady=0)
 
-    go_cart = Button(text="Go To Cart", font='sans 14', command=Adaptee.CartWindowMain)
+    go_cart = Button(text="Go To Cart", font='sans 14', command=Adaptee.CartWindow)
     go_cart.pack(pady=0)
 
     remove_one = Button(text="Details", font='sans 14', command=Adaptee.details)
     remove_one.pack(pady=0)
-
     root.mainloop()
