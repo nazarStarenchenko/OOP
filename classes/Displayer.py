@@ -21,9 +21,12 @@ class Adaptee:
 
         def to_delete():
             res = txt.get()
-            cartList.remove(res)
-            lbl1.configure(text=cartList)
-            txt.delete(0, END)
+            if res not in cartList:
+                pass    
+            else:
+                cartList.remove(res)
+                lbl1.configure(text=cartList)
+                txt.delete(0, END)
 
         def to_buy():
 
