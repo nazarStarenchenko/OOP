@@ -61,7 +61,7 @@ class Adaptee:
             lbl_buy.grid(column=2, row=0)
             lbl_buy.after(2000, close_window)
             root.after(2, root.destroy)
-            
+
         def close_window():
             window.destroy()
 
