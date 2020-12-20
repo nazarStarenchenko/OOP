@@ -1,7 +1,7 @@
 from classes.Collection import Collection
 
 
-class ItemCollectionSingleton(Collection):
+class ItemCollection(Collection):
 
     def __init__(self):
         self.__listOfContent = []

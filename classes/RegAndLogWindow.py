@@ -1,5 +1,9 @@
 import tkinter as tk
 from tkinter.ttk import *
+from classes.Helpers import Helpers
+from classes.RegisteredUser import RegisteredUser
+from classes.LoginUser import LoginUser
+from classes.Displayer import Adaptee
 
 #class log window
 class LogWindow(tk.Toplevel):
@@ -8,6 +12,7 @@ class LogWindow(tk.Toplevel):
 		
 		super().__init__(master=root)
 		self.geometry("300x150") 
+		self.r = root
 
 		tk.Label(self, text ="enter login").pack()
 		self.logFuncLoginEntry = tk.Entry(self)
@@ -37,6 +42,8 @@ class LogWindow(tk.Toplevel):
 			lu = LoginUser().SetFields(resDict)
 			print(lu)
 			self.destroy()
+			Adaptee.mainDisplay()
+			
 
 #class reg window
 class RegWindow(tk.Toplevel):
@@ -44,6 +51,7 @@ class RegWindow(tk.Toplevel):
 	def __init__(self, root=None):
 
 		super().__init__(master=root)
+		self.r = root
 		self.geometry("300x448")
 
 		#email
@@ -113,6 +121,7 @@ class RegWindow(tk.Toplevel):
 			ru = RegisteredUser().setFields(resDict)
 			print(ru)
 			self.destroy()
+			Adaptee.mainDisplay()
 			
 
 class ChoiceWindow:

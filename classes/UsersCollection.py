@@ -1,6 +1,6 @@
 from classes.Collection import Collection
 
-class UsersCollectionSingleton(Collection):
+class UsersCollection(Collection):
     
     def __init__(self):
         self.__listOfContent = []

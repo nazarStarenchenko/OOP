@@ -1,7 +1,7 @@
 from classes.DataBaseAdderAndDeleter import DataBaseAdderAndDeleter
 from classes.Helpers import Helpers
 from classes.User import User
-from classes.ItemCollectionSingleton import ItemCollectionSingleton
+from classes.ItemCollection import ItemCollection
 
 class AdminUser(User, DataBaseAdderAndDeleter):
 	
