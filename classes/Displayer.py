@@ -1,107 +1,161 @@
-import tkinter as tk
-import tkinter.font as tkFont
-import tkinter.ttk as ttk
 from tkinter import *
-#from classes.RegularUser import RegularUser
-#from classes.CartAdder import CartAdder
+from tkinter import ttk
+
+# from OOP.CartWindowFrame import CartWindow
+
+root = Tk()
+root.title('Tree')
+# root.iconbitmap()
+root.geometry("1280x650+-10+0")
+
+my_tree = ttk.Treeview(root)
+
+my_tree['columns'] = ("Name", "Amount", "Price")
+
+my_tree.column("#0", width=0, stretch=NO)
+my_tree.column("Name", anchor=W, width=140)
+my_tree.column("Amount", anchor=CENTER, width=100)
+my_tree.column("Price", anchor=W, width=140)
+
+my_tree.heading("#0", text='', anchor=W)
+my_tree.heading("Name", text='Name', anchor=W)
+my_tree.heading("Amount", text='Amount', anchor=CENTER)
+my_tree.heading("Price", text='Price', anchor=W)
 
 
-class MultiColumnListbox(object):
-
-    def __init__(self):
-        self.tree = None
-        self._setup_widgets()
-        self._build_tree()
+class Target:
+    def request(self) -> str:
+        pass
 
 
+class Adaptee:
+    # def specific_request(self) -> str:
+    #    return ".eetpadA eht fo roivaheb laicepS"
+
+    @staticmethod
+    def add_record():
+        x = my_tree.selection()[0]
+        cartList.append(list(dict.values(alllist[int(x)]))[0])
+        print(cartList)
+        return cartList
+
+    class CartWindow:
+
+        def __init__(self, root):
+            self.root = root
+            root.title("CART")
+            root.geometry("300x220")
+
+            self.label1 = Label(root, text="Items added to the cart:")
+            self.label1.pack()
+
+            self.cartlist = cartList
+
+            self.label_cart = Label(root, text=self.cartlist, font='bold')
+            self.label_cart.pack(pady=10)
+
+            self.label_entry = Label(root, text="Enter name of product to delete from cart:")
+            self.label_entry.pack()
+            self.entry = Entry(root, width=20)
+            self.entry.focus()
+            self.entry.pack()
+
+            self.delete_button = Button(root, text="Delete", command=self.to_delete)
+            self.delete_button.pack()
+
+            self.label_buy = Label(root, text="To buy products click on the button")
+            self.label_buy.pack(ipady=5)
+            self.buy_button = Button(root, text="Buy", command=self.to_buy)
+            self.buy_button.pack()
+
+        def to_delete(self):
+            self.res = self.entry.get()
+            if self.res in self.cartlist:
+                self.cartlist.remove(self.res)
+                self.label_cart.configure(text=self.cartlist)
+                self.entry.delete(0, END)
+            else:
+                self.entry.delete(0, END)
+
+                self.destroy_obj = [self.label_buy,
+                                    self.buy_button]
+                for each in self.destroy_obj:
+                    each.destroy()
+                self.label_noitem = Label(root, text="There is no such item in the cart")
+                self.label_noitem.pack()
+                self.label_noitem.after(3000, self.label_noitem.destroy)
+
+                self.label_buy = Label(root, text="To buy products click on the button")
+                self.label_buy.pack(ipady=5)
+                self.buy_button = Button(root, text="Buy", command=self.to_buy)
+                self.buy_button.pack()
+
+        def to_buy(self):
+            self.destroy_object = [self.label1, self.label_cart,
+                                   self.label_entry, self.label_buy, self.entry,
+                                   self.buy_button, self.delete_button]
+
+            for each in self.destroy_object:
+                each.destroy()
+
+            self.label_inbuy = Label(root, text="YOUR ORDER WAS CONFIRMED!")
+            self.label_inbuy.pack(pady=40)
+            self.label_inbuy.after(2000, root.destroy)
+
+    @staticmethod
+    def CartWindowMain():
+        root = Tk()
+        Adaptee.CartWindow(root)
+        root.mainloop()
+
+    @staticmethod
+    def details():
+        x = my_tree.selection()[0]
+        root2 = Tk()
+        root2.title("Item Information")
+        root2.geometry("1280x650+-10+0")
+        for key, value in alllist[int(x)].items():
+            text = f"{key} : {value}"
+            Label(root2, text=text).grid()
+        root2.mainloop()
 
 
-    def _setup_widgets(self):
-
-        s = """Оберіть товари: """
-        msg = ttk.Label(wraplength="4i", justify="left", anchor="n", padding=(10, 2, 10, 6), text=s, width=120)
-        msg.pack(fill='x')
-        container = ttk.Frame()
-        container.pack(fill='both', expand=True)
-        self.tree = ttk.Treeview(columns=column, show="headings")
-        vsb = ttk.Scrollbar(orient="vertical", command=self.tree.yview)
-        hsb = ttk.Scrollbar(orient="horizontal", command=self.tree.xview)
-        self.tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-        self.tree.grid(column=0, row=0, sticky='nsew', in_=container)
-        vsb.grid(column=1, row=0, sticky='ns', in_=container)
-        hsb.grid(column=0, row=1, sticky='ew', in_=container)
-        container.grid_columnconfigure(0, weight=1)
-        container.grid_rowconfigure(0, weight=1)
+class Adapter(Target, Adaptee):
+    def request(self):
+        pass
 
 
-    def _build_tree(self):
-        for col in column:
-            self.tree.heading(col, text=col.title(), command=lambda c=col: sortby(self.tree, c, 0))
-            self.tree.column(col, width=tkFont.Font().measure(col.title()))
-
-        for item in l:
-            self.tree.insert('', 'end', values=item)
-            for ix, val in enumerate(item):
-                col_w = tkFont.Font().measure(val)
-                if self.tree.column(column[ix], width=None) < col_w:
-                    self.tree.column(column[ix], width=col_w)
+def client_code(target: "Target") -> None:
+    print(target.request(), end="")
 
 
-def sortby(tree, col, descending):
-    data = [(tree.set(child, col), child) \
-            for child in tree.get_children('')]
-    data.sort(reverse=descending)
-    for ix, item in enumerate(data):
-        tree.move(item[1], '', ix)
-    tree.heading(col, command=lambda col=col: sortby(tree, col, int(not descending)))
-
-
-def add(cartList):
-    # cartList.append([tree.item(x) for x in tree.selection()])
-    pass
-
-
-def details():
-    Details().mainloop()
-
-
-def go():
-    Cart().mainloop()
-
-
-class Details(Tk):
-    def __init__(self, *arg, **kwarg):
-        super().__init__(*arg, **kwarg)
-        label = Label(self, text='Details', width=120, height=30)
-        label.pack()
-
-
-class Cart(Tk):
-    def __init__(self, *arg, **kwarg):
-        super().__init__(*arg, **kwarg)
-
-        label = Label(self, text='Cart', width=120, height=30)
-        label.pack()
-
-
-column = ['Назва товару', 'Ціна']
-file = open("C:\\Users\\VivoBook\\PycharmProjects\\OOP-1\\itemBase.txt", "r")
-line = file.readlines()
-l = []
-for i in line:
-    dct = eval(i)
-    p = dct['name'], dct['price']
-    l.append(p)
-file.close()
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    root.title("Список товарів")
-    listbox = MultiColumnListbox()
+if __name__ == "__main__":
+    file = open("C:/Users/Nikolay/PycharmProjects/untitled5/OOP/itemBase.txt", "r")
+    line = file.readlines()
+    l = []
+    alllist = []
+    for i in line:
+        dct = eval(i)
+        alllist.append(dct)
+        p = dct['name'], dct['amountAvalible'], dct['price']
+        l.append(p)
+    file.close()
+    data = l
+    print(alllist)
+    count = 0
+    for record in data:
+        my_tree.insert(parent='', index='end', iid=count, text='', values=(record[0], record[1], record[2]))
+        count += 1
+    my_tree.pack(pady=20)
     cartList = []
-    button1 = tk.Button(root, text="Додати", command=add(cartList)).pack(fill=tk.X)
-    button2 = tk.Button(root, text="Детальніше", command=details).pack(fill=tk.X)
-    button3 = tk.Button(root, text="Перейти до кошика", command=go).pack(fill=tk.X)
-    exit_button = tk.Button(root, text="Вихід", command=root.quit).pack(fill=tk.X)
-    root.mainloop()
 
+    add_record = Button(text="Add To Cart", font='sans 14', command=Adaptee.add_record)
+    add_record.pack(pady=0)
+
+    go_cart = Button(text="Go To Cart", font='sans 14', command=Adaptee.CartWindowMain)
+    go_cart.pack(pady=0)
+
+    remove_one = Button(text="Details", font='sans 14', command=Adaptee.details)
+    remove_one.pack(pady=0)
+
+    root.mainloop()
