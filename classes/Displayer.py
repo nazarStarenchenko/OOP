@@ -21,15 +21,17 @@ class Adaptee:
 
         def to_delete():
             res = txt.get()
-            if res not in cartList:
-                pass    
-            else:
+            if res in cartList:
                 cartList.remove(res)
                 lbl1.configure(text=cartList)
                 txt.delete(0, END)
-
+            else:
+                txt.delete(0, END)
+                label_noitem = Label(window, text="There is no such item in the cart")
+                label_noitem.grid(column=1, row=6)
+                label_noitem.after(3000, label_noitem.destroy)
+        
         def to_buy():
-
             destroy_object = [lbl, lbl1, lbl2, lbl3, btn, btn2, txt]
             for object_name in destroy_object:
                 if object_name.winfo_viewable():

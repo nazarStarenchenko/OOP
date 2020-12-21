@@ -1,1 +1,1 @@
-{'email': 'a@i.ua', 'name': '567', 'age': 14, 'password': 'gay', 'cardNumber': '124312431243', 'cvv': '123', 'cardDateMonth': 4, 'cardDateYear': 56, 'cardPassword': 1242}
+{'email': 'a@i.ua', 'name': '567', 'age': 14, 'password': '1111', 'cardNumber': '124312431243', 'cvv': '123', 'cardDateMonth': 4, 'cardDateYear': 56, 'cardPassword': 1242}
